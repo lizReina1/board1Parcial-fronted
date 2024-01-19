@@ -11,6 +11,10 @@ module.exports = {
     path: outputPath,
     filename: '[hash].bundle.js'
   },
+  mode: 'production',
+  optimization: {
+    minimize: false,  // Desactivar la minimización
+  },
   plugins: [
     new CleanWebpackPlugin([outputPath], {
       root: rootPath,
