@@ -4,6 +4,8 @@ const axios = require('axios').default;
 const server = require('http').createServer();
 const io = require('socket.io')(server, {
   cors: { origin: '*' }
+/*   cors: { origin: 'https://board1-parcial-fronted.vercel.app', methods: ['GET', 'POST'] }
+ */
 });
 
 // keep track of all components that client sends
