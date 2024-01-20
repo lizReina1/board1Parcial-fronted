@@ -14,7 +14,7 @@ Editor = function(chromeless, themes, model, graph)
 	this.status = '';
 
 	this.getOrCreateFilename = function()
-	{
+	{  console.log(mxResources.get('drawing', [Editor.pageCounter]) + '.xml');
 		return this.filename || mxResources.get('drawing', [Editor.pageCounter]) + '.xml';
 	};
 	

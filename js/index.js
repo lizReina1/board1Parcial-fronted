@@ -23,6 +23,7 @@ EditorUi.prototype.init = function () {
   // Updates action states which require a backend
   Editor.useLocalStorage = true;
   Editor.useFileSystemSave = true;
+ 
   if (!Editor.useLocalStorage) {
     mxUtils.post(OPEN_URL, '', mxUtils.bind(this, function (req) {
       var enabled = req.getStatus() != 404;

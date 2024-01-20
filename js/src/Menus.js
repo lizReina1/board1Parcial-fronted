@@ -396,7 +396,7 @@ Menus.prototype.init = function () {
     this.addMenuItems(menu, ['-', 'fitWindow', 'fitPageWidth', 'fitPage', 'fitTwoPages', '-', 'customZoom'], parent);
   })));
   this.put('file', new Menu(mxUtils.bind(this, function (menu, parent) {
-    this.addMenuItems(menu, ['new', 'open', '-', 'save', 'saveAs', '-', 'import', 'export', '-',
+    this.addMenuItems(menu, ['new', 'open', '-', 'save', 'saveAs', '-', 'import', 'export','generateCode','test', '-',
       'editDiagram', '-', 'pageSetup', 'print'], parent);
   })));
   this.put('edit', new Menu(mxUtils.bind(this, function (menu, parent) {

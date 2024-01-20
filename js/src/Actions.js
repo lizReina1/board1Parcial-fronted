@@ -80,6 +80,10 @@ Actions.prototype.init = function () {
     ui.showDialog(dlg.container, 620, 420, true, true);
     dlg.init();
   });
+  this.addAction('test', function () {
+    
+    alert('Hi');
+  });
   this.addAction('generateCode...', function () {
     ui.showDialog(new GenerateCodeDialog(ui).container, 300, 230, true, true);
   });

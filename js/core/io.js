@@ -66,12 +66,12 @@ io.on('connection', (socket) => {
     // Validacion si existe usuario y sala en el backend...
 
     // consumir el endpoint para obtener el usuario por su token
-    // le paso el token del usuario como parametro
-    const responseUser = await axios.get('http://localhost:5000/apis/user/' + name);
+    // le paso el token del usuario como parametrohttp://localhost:5000/apis/user/ 
+    const responseUser = await axios.get('http://3.144.3.122:5000/apis/user/' + name);
 
     // consumir el endpoint para obtener la el proyecto por su codigo/llave
     // le paso el codigo de la sala
-    const responseProject = await axios.get('http://localhost:5000/apis/cargar-salas/' + room);
+    const responseProject = await axios.get('http://3.144.3.122:5000/apis/cargar-salas/' + room);
 
     if ((responseUser.status === 200 && responseProject.status === 200) && responseUser.data.name && responseProject.data.nombre) {
 
@@ -125,7 +125,7 @@ io.on('connection', (socket) => {
       console.log(body.content);
       console.log("###########################");
       // TODO: CAMBIAR A LA URL DE MI API
-      const response = await axios.put('http://localhost:5000/apis/guardar-diagrama/' + data.room, body);
+      const response = await axios.put('http://3.144.3.122:5000/apis/guardar-diagrama/' + data.room, body);
       //console.log(response.status);
       let message = 'Ocurrio un error al guardar el diagrama.';
       if (response.status === 200) {
