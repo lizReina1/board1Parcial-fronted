@@ -104,6 +104,7 @@ entityRelation=Entity Relation
 exitGroup=Exit Group
 expand=Expand
 export=Export
+exportXMI=Export XMI
 extras=Extras
 file=File
 fileNotFound=File not found
