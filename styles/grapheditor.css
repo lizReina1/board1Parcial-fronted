@@ -199,7 +199,7 @@
 	text-decoration:none;
 }
 .geMenubarContainer {
-	background-color:#91cdf8;
+	background-color:#FF9BE4;
 	
 }
 .geMenubar {
@@ -343,7 +343,7 @@ div.mxWindow .geButton {
 	padding:6px 0px 6px 14px;
 	margin:0px;
 	cursor:default;
-	background:#91CDF8;
+	background:#FF9BE4;
 	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;

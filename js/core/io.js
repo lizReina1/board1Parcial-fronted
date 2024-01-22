@@ -70,11 +70,12 @@ io.on('connection', (socket) => {
 
     // consumir el endpoint para obtener el usuario por su token
     // le paso el token del usuario como parametrohttp://localhost:5000/apis/user/ 
-    const responseUser = await axios.get('http://3.144.3.122:5000/apis/user/' + name);
+    // http://3.144.3.122:5000/apis/user/
+    const responseUser = await axios.get('http://localhost:5000/apis/user/' + name);
 
     // consumir el endpoint para obtener la el proyecto por su codigo/llave
     // le paso el codigo de la sala
-    const responseProject = await axios.get('http://3.144.3.122:5000/apis/cargar-salas/' + room);
+    const responseProject = await axios.get('http://localhost:5000/apis/cargar-salas/' + room);
 
     if ((responseUser.status === 200 && responseProject.status === 200) && responseUser.data.name && responseProject.data.nombre) {
 
@@ -97,6 +98,7 @@ io.on('connection', (socket) => {
         const usersInRoom = getUsersInRoom(room);
         socket.emit('load_room_title', { title: responseProject.data.nombre, users: usersInRoom });
         io.in(room).emit('reload_users_room', { users: usersInRoom });
+       
         // load draw_components 
         socket.emit('draw_component', { xml: xmlString });
       }

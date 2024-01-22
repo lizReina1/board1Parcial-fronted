@@ -104,12 +104,72 @@ const addClassDiagramPalette = function (sb, expand) {
       return sb.createVertexTemplateFromCells([cell], cell.geometry.width, cell.geometry.height, 'Entity Lifeline');
     }),
 
-    sb.createEdgeTemplateEntry('html=1;verticalAlign=bottom;startArrow=oval;startFill=1;endArrow=block;startSize=8;curved=0;rounded=0;', 160, 0, 'dispatch', 'Found Message', null, 'uml generalization extend'),
+    sb.addEntry('uml sequence invoke call delegation synchronous invocation activation', function()
+		{
+	    	var cell = new mxCell('', new mxGeometry(0, 0, 10, 80), 'html=1;points=[];perimeter=orthogonalPerimeter;');
+	    	cell.vertex = true;
+	    	
+			var edge1 = new mxCell('dispatch', new mxGeometry(0, 0, 0, 0), 'html=1;verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;');
+			edge1.geometry.setTerminalPoint(new mxPoint(-70, 0), true);
+			edge1.geometry.relative = true;
+			edge1.edge = true;
 
-    sb.createEdgeTemplateEntry('html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;', 160, 0, 'dispatch', 'Message', null, 'uml generalization extend'),
+			cell.insertEdge(edge1, false);
+			
+			var edge2 = new mxCell('return', new mxGeometry(0, 0, 0, 0), 'html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;exitX=0;exitY=0.95;');
+			edge2.geometry.setTerminalPoint(new mxPoint(-70, 76), false);
+			edge2.geometry.relative = true;
+			edge2.edge = true;
+			
+			cell.insertEdge(edge2, true);
+			
+			return sb.createVertexTemplateFromCells([cell, edge1, edge2], 10, 80, 'Synchronous Invocation');
+		}),
+
+    sb.addEntry('uml sequence invoke invocation call activation', function()
+		{
+	    	var cell = new mxCell('', new mxGeometry(0, 0, 10, 80), 'html=1;points=[];perimeter=orthogonalPerimeter;');
+	    	cell.vertex = true;
+	    	
+			var edge = new mxCell('dispatch', new mxGeometry(0, 0, 0, 0), 'html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;');
+			edge.geometry.setTerminalPoint(new mxPoint(-60, 0), true);
+			edge.geometry.relative = true;
+			edge.edge = true;
+			
+			cell.insertEdge(edge, false);
+	
+			return sb.createVertexTemplateFromCells([cell, edge], 10, 80, 'Found Message');
+		}),
+
+    sb.addEntry('uml sequence self call recursion delegation activation', function()
+		{
+	    	var cell = new mxCell('', new mxGeometry(0, 20, 10, 40), 'html=1;points=[];perimeter=orthogonalPerimeter;');
+	    	cell.vertex = true;
+	
+			var edge = new mxCell('self call', new mxGeometry(0, 0, 0, 0), 'edgeStyle=orthogonalEdgeStyle;html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;entryX=1;entryY=0;');
+			edge.geometry.setTerminalPoint(new mxPoint(5, 0), true);
+			edge.geometry.points = [new mxPoint(30, 0)];
+			edge.geometry.relative = true;
+			edge.edge = true;
+			
+			cell.insertEdge(edge, false);
+	
+			return sb.createVertexTemplateFromCells([cell, edge], 10, 60, 'Self Call');
+		}),
+    
+   
+    sb.createEdgeTemplateEntry('html=1;verticalAlign=bottom;startArrow=oval;startFill=1;endArrow=block;startSize=8;curved=0;rounded=0;', 160, 0, 'dispatch', 'Found Message', null, 'uml generalization extend'),
+    sb.createEdgeTemplateEntry('shape=connector;html=2;verticalAlign=bottom;dashed=3', 160, 0, '', 'Found Message', null, 'uml generalization extend'),
+    sb.createEdgeTemplateEntry('html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;', 160, 0, 'return', 'Return', null, 'uml generalization extend'),
+
+    /* sb.createEdgeTemplateEntry('html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;', 160, 0, 'dispatch', 'Message', null, 'uml generalization extend'),
     
     sb.createEdgeTemplateEntry('html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;', 160, 0, 'return', 'Return', null, 'uml generalization extend'),
     
+    sb.createEdgeTemplateEntry('html=1;verticalAlign=bottom;startArrow=oval;startFill=1;endArrow=block;startSize=8;', 60, 0, 'dispatch', 'Found Message 1', null, 'uml sequence message call invoke dispatch'),
+    sb.createEdgeTemplateEntry('html=1;verticalAlign=bottom;startArrow=circle;startFill=1;endArrow=open;startSize=6;endSize=8;', 80, 0, 'dispatch', 'Found Message 2', null, 'uml sequence message call invoke dispatch'),
+    sb.createEdgeTemplateEntry('html=1;verticalAlign=bottom;endArrow=block;', 80, 0, 'dispatch', 'Message', null, 'uml sequence message call invoke dispatch'),
+    */
   ];
   sb.addPaletteFunctions('classDiagram', mxResources.get('classDiagram'), expand || false, fns);
 };

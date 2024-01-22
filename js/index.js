@@ -32,6 +32,7 @@ EditorUi.prototype.init = function () {
        this.actions.get('save').setEnabled(enabled);
        this.actions.get('saveAs').setEnabled(enabled);
        this.actions.get('export').setEnabled(enabled);
+  
     }));
   }
 
@@ -54,6 +55,8 @@ EditorUi.prototype.init = function () {
     }
     
   }, null, null, '');
+
+  
 
 
   // Extends graphChangeListener to emit socket server
@@ -123,6 +126,7 @@ mxUtils.getAll([bundle, STYLE_PATH + '/default.xml'], function (xhr) {
   var users = document.createElement('a');
   users.className = 'geTitle';
   users.style = 'padding-left:7%'
+  
   users.innerText = 'Usuarios Conectados';
   EditorUi.prototype.sidebarContainer.appendChild(users);
   
