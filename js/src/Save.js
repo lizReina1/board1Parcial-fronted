@@ -131,7 +131,7 @@ const saveXMI = function (ui, name) {
       ui.editor.graph.stopEditing();
     }
 
-    var xml = parcerXmi(ui);//mxUtils.getXml(ui.editor.getGraphXml());
+    var xml = parcerXmi(ui).trim();//mxUtils.getXml(ui.editor.getGraphXml());
     var textFile = null;
     try {
       if (Editor.useFileSystemSave) {

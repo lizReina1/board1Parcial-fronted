@@ -18,8 +18,8 @@ export const parcerXmi = (ui) => {
 }
 
 const createTemplate = (vertex,edges)=>{
-    return `
-    ${header()}
+    return `${header()}
+
     ${templateModel(vertex, edges)}
 
     ${templateDiagram(vertex, edges)}
@@ -66,7 +66,8 @@ const modelElementTaggedValue = () => {
 const modelNamespaceOwnedElement = (vertex,edges) => {
     return `
     <UML:Namespace.ownedElement>
-    
+
+    ${modelActorsList(vertex)}
     ${modelCollaboration(vertex, edges)}
 
     </UML:Namespace.ownedElement>
@@ -99,9 +100,18 @@ const modelCollaboration = (vertex, edges) => {
     </UML:Collaboration>
     `;
 }
-const modelActor = () => {
+const modelActorsList = (vertex) => {
+    let listActors = ``;
+    vertex.forEach((e) => {
+        if (e.style.includes("umlActor"))
+            listActors += modelActor(e);
+    });
+
+    return listActors;
+}
+const modelActor = (e) => {
     return `
-    <UML:Actor name="usuario" xmi.id="EAID_21F18095_30FE_4d5a_AC46_07872FAF129B" visibility="public" namespace="EAPK_E119E75A_C8B5_4f8c_8DB5_5F1E40878144" isRoot="false" isLeaf="false" isAbstract="false">
+    <UML:Actor name="${e.value}" xmi.id="EAID_${e.uuid}" visibility="public" namespace="EAPK_E119E75A_C8B5_4f8c_8DB5_5F1E40878144" isRoot="false" isLeaf="false" isAbstract="false">
         <UML:ModelElement.taggedValue>
 
             <UML:TaggedValue tag="isSpecification" value="false"/>
