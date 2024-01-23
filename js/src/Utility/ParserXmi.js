@@ -14,17 +14,15 @@ export const parcerXmi = (ui) => {
     console.log(vertex)
     console.log(edges);
 
-    return createTemplate(vertex,'edges');
+    return createTemplate(vertex,edges);
 }
 
 const createTemplate = (vertex,edges)=>{
     return `${header()}
-
     ${templateModel(vertex, edges)}
 
     ${templateDiagram(vertex, edges)}
-    ${footer()}
-`;
+    ${footer()}`;
 }
 
 const templateModel = (vertex,edges) => {
@@ -86,6 +84,11 @@ const modelCollaboration = (vertex, edges) => {
             listClassifierRole += modelCollaborationElementEntity(e);
     });
 
+    let listMessages = ``;
+    edges.forEach((e) => {
+        listMessages += modelMessage(e);
+    });
+
     return `
     <UML:Collaboration xmi.id="EAID_E119E75A_C8B5_4f8c_8DB5_5F1E40878144_Collaboration" name="Collaborations">
    
@@ -94,10 +97,83 @@ const modelCollaboration = (vertex, edges) => {
         </UML:Namespace.ownedElement>
 
         <UML:Collaboration.interaction>
-              list acciones edges
+            <UML:Interaction xmi.id="EAID_E119E75A_C8B5_4f8c_8DB5_5F1E40878144_INT" name="EAID_E119E75A_C8B5_4f8c_8DB5_5F1E40878144_INT">
+                <UML:Interaction.message>
+                    ${listMessages}
+                </UML:Interaction.message>
+			</UML:Interaction>
         </UML:Collaboration.interaction>
 
     </UML:Collaboration>
+    `;
+}
+const getSourceOrTargetId = (e,value) => {
+    //values: source target, style dashed
+    if (value === 'source') {
+        if (e.source) {
+            if (e.source.parent.value != undefined)
+                return e.source.parent.uuid;
+            else
+                return e.source.uuid;
+        }
+    } else {
+        if (e.target) {
+            if (e.target.parent.value != undefined)
+                return e.target.parent.uuid;
+            else
+                return e.target.uuid;
+        }
+    }
+
+}
+const modelMessage = (e) => {
+    //source target dashed
+    return `
+    <UML:Message name="${e.value}" xmi.id="EAID_${e.uuid}" visibility="public" sender="EAID_${getSourceOrTargetId(e,'source')}" receiver="EAID_${getSourceOrTargetId(e,'target')}">
+    <UML:ModelElement.taggedValue>
+        <UML:TaggedValue tag="style" value="1"/>
+        <UML:TaggedValue tag="ea_type" value="Sequence"/>
+        <UML:TaggedValue tag="direction" value="Source -&gt; Destination"/>
+        <UML:TaggedValue tag="linemode" value="1"/>
+        <UML:TaggedValue tag="linecolor" value="-1"/>
+        <UML:TaggedValue tag="linewidth" value="0"/>
+        <UML:TaggedValue tag="seqno" value="1"/>
+        <UML:TaggedValue tag="headStyle" value="0"/>
+        <UML:TaggedValue tag="lineStyle" value="0"/>
+        <UML:TaggedValue tag="privatedata1" value="Synchronous"/>
+        <UML:TaggedValue tag="privatedata2" value="retval=void;"/>
+        <UML:TaggedValue tag="privatedata3" value="Call"/>
+        <UML:TaggedValue tag="privatedata4" value="0"/>
+        <UML:TaggedValue tag="ea_localid" value="7"/>
+        <UML:TaggedValue tag="ea_sourceName" value="usuario"/>
+        <UML:TaggedValue tag="ea_targetName" value="pCliente"/>
+        <UML:TaggedValue tag="ea_sourceType" value="Actor"/>
+        <UML:TaggedValue tag="ea_targetType" value="Sequence"/>
+        <UML:TaggedValue tag="ea_sourceID" value="15"/>
+        <UML:TaggedValue tag="ea_targetID" value="19"/>
+        <UML:TaggedValue tag="src_visibility" value="Public"/>
+        <UML:TaggedValue tag="src_isOrdered" value="false"/>
+        <UML:TaggedValue tag="src_targetScope" value="instance"/>
+        <UML:TaggedValue tag="src_changeable" value="none"/>
+        <UML:TaggedValue tag="src_isNavigable" value="false"/>
+        <UML:TaggedValue tag="src_containment" value="Unspecified"/>
+        <UML:TaggedValue tag="src_style" value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Non-Navigable;"/>
+        <UML:TaggedValue tag="dst_visibility" value="Public"/>
+        <UML:TaggedValue tag="dst_aggregation" value="0"/>
+        <UML:TaggedValue tag="dst_isOrdered" value="false"/>
+        <UML:TaggedValue tag="dst_targetScope" value="instance"/>
+        <UML:TaggedValue tag="dst_changeable" value="none"/>
+        <UML:TaggedValue tag="dst_isNavigable" value="true"/>
+        <UML:TaggedValue tag="dst_containment" value="Unspecified"/>
+        <UML:TaggedValue tag="dst_style" value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Navigable;"/>
+        <UML:TaggedValue tag="privatedata5" value="SX=0;SY=-19;EX=0;EY=0;$LLB=;LLT=;LMT=CX=50:CY=13:OX=0:OY=0:HDN=0:BLD=0:ITA=0:UND=0:CLR=-1:ALN=1:DIR=0:ROT=0;LMB=;LRT=;LRB=;IRHS=;ILHS=;"/>
+        <UML:TaggedValue tag="sequence_points" value="PtStartX=171;PtStartY=-154;PtEndX=293;PtEndY=-154;"/>
+        <UML:TaggedValue tag="stateflags" value="Activation=0;ExtendActivationUp=0;"/>
+        <UML:TaggedValue tag="virtualInheritance" value="0"/>
+        <UML:TaggedValue tag="diagram" value="EAID_78BE72E2_E8ED_4c3e_82D5_4F2C3503DC77"/>
+        <UML:TaggedValue tag="mt" value="seleccionar()"/>
+        </UML:ModelElement.taggedValue>
+    </UML:Message>
     `;
 }
 const modelActorsList = (vertex) => {
@@ -291,12 +367,16 @@ const collaborationDiagram = () => {
 }
 const sequenceDiagram = (vertex,edges) => {
 
-    let lisElementsVertex = ``;
+    let listElementsVertex = ``;
 
     vertex.forEach((e) => {
-       lisElementsVertex+= diagramElement(e);
+       listElementsVertex+= diagramElementVertex(e);
     });
 
+    let listElementsEdge = ``;
+    edges.forEach((e) => {
+        listElementsEdge+= diagramElementEdge(e);
+    });
     return `
 	<UML:Diagram name="BPMN 2.0 Collaboration View" xmi.id="EAID_78BE72E2_E8ED_4c3e_82D5_4F2C3503DC77" diagramType="SequenceDiagram" owner="EAPK_E119E75A_C8B5_4f8c_8DB5_5F1E40878144" toolName="Enterprise Architect 2.5">
         <UML:ModelElement.taggedValue>
@@ -314,16 +394,22 @@ const sequenceDiagram = (vertex,edges) => {
         </UML:ModelElement.taggedValue>
 
         <UML:Diagram.element>
-            ${lisElementsVertex}
+            ${listElementsVertex}
+            ${listElementsEdge}
         </UML:Diagram.element>
 
     </UML:Diagram>
     `;
 }
 
-const diagramElement = (e) => {
+const diagramElementVertex = (e) => {
 
     return `
         <UML:DiagramElement geometry="Left=${e.geometry.x};Top=${e.geometry.y};Right=${e.geometry.x+e.geometry.width};Bottom=${e.geometry.height};" subject="EAID_${e.uuid}" seqno="${e.id}" style="DUID=CAB935B1;"/>
+    `;
+}
+const diagramElementEdge = (e) => {
+    return `
+    <UML:DiagramElement geometry="SX=0;SY=0;EX=0;EY=0;Path=;" subject="EAID_${e.uuid}" style=";Hidden=0;"/>
     `;
 }

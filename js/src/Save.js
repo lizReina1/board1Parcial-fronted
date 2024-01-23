@@ -99,10 +99,8 @@ export const saveFileXMI = function (ui, forceDialog) {
     ui.save(ui.editor.getOrCreateFilename());
   } else {
     console.log('file XMI');
-    let uuid = self.crypto.randomUUID();
-    console.log(uuid);
-    console.log(ui.editor.graph.getChildVertices(ui.editor.graph.getDefaultParent()));
-    console.log(ui.editor.graph.getChildEdges(ui.editor.graph.getDefaultParent()));
+   // console.log(ui.editor.graph.getChildVertices(ui.editor.graph.getDefaultParent()));
+  //console.log(ui.editor.graph.getChildEdges(ui.editor.graph.getDefaultParent()));
     //ui.editor.getOrCreateFilename()
     var dlg = new FilenameDialog(ui,'Diagram.xml', mxResources.get('save'), mxUtils.bind(ui, function (name) {
       saveXMI(ui, name);
