@@ -492,6 +492,7 @@ Editor.prototype.getGraphXml = function(ignoreSelection)
 	
 	if (ignoreSelection)
 	{
+		console.log('Getxml');
 		var enc = new mxCodec(mxUtils.createXmlDocument());
 		node = enc.encode(this.graph.getModel());
 	}
@@ -523,6 +524,7 @@ Editor.prototype.getGraphXml = function(ignoreSelection)
 		node.setAttribute('background', this.graph.background);
 	}
 	
+	console.log(node);
 	return node;
 };
 

@@ -1,4 +1,5 @@
-var saveFile = require('./Save.js');
+//var saveFile = require('./Save.js');
+import { saveFileXMI,saveFile } from './Save';
 var ExportDialog = require('./Dialogs/ExportDialog');
 var GenerateCodeDialog = require('./Dialogs/GenerateCodeDialog');
 
@@ -72,18 +73,32 @@ Actions.prototype.init = function () {
    this.addAction('saveAs', function () {
      saveFile(ui, true);
    }, null, null, 'Ctrl+Shift+S').isEnabled = isGraphEnabled;
+  
   this.addAction('export...', function () {
     ui.showDialog(new ExportDialog(ui).container, 300, 230, true, true);
   });
+
+  // Add export XMI
+  this.addAction('exportXMI...', function () {
+   
+    //var xml = mxUtils.getXml(ui.editor.getGraphXml());
+    //console.log(xml);
+    //console.log(ui.editor.getGraphXml());
+
+    //console.log(ui.editor.graph.getModel());
+    //console.log(ui.editor.graph.getChildVertices(ui.editor.graph.getDefaultParent()));
+    //console.log(ui.editor.graph.getChildEdges(ui.editor.graph.getDefaultParent()));
+    //console.log('xmi');
+    saveFileXMI(ui, true);
+    //ui.showDialog(new ExportDialog(ui).container, 300, 230, true, true);
+  });
+
   this.addAction('editDiagram...', function () {
     var dlg = new EditDiagramDialog(ui);
     ui.showDialog(dlg.container, 620, 420, true, true);
     dlg.init();
   });
-  this.addAction('test', function () {
-    
-    alert('Hi');
-  });
+
   this.addAction('generateCode...', function () {
     ui.showDialog(new GenerateCodeDialog(ui).container, 300, 230, true, true);
   });

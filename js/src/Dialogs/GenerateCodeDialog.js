@@ -72,6 +72,7 @@ var GenerateCodeDialog = function (editorUi) {
     var name = nameInput.value;
     var language = languageSelect.value;
     var generator = new GeneratorFactory(editorUi, name, language).createGenerator();
+    console.log('Progress');
     console.log(generator.generateCode)
     generator.generateAndSave();
   }));

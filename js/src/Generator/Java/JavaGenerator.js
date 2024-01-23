@@ -7,7 +7,7 @@ JavaGenerator.prototype = new AbstractGenerator();
 
 JavaGenerator.prototype.generateCode = function(classAndInterfaceLists) {
   var list = classAndInterfaceLists;
-
+  console.log('Java');
   var str = '';
   for (var key in list) {
       if (list.hasOwnProperty(key)) {
