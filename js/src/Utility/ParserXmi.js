@@ -1,14 +1,16 @@
+import crypto from 'crypto';
+//const crypto = require('crypto');
 export const parcerXmi = (ui) => {
-
+    //console.log('Unique ID:', crypto.randomBytes(16).toString('hex'));
     //console.log(ui.editor.graph.getModel());
    // console.log(ui.editor.graph.getChildVertices(ui.editor.graph.getDefaultParent()));
     const vertex = ui.editor.graph.getChildVertices(ui.editor.graph.getDefaultParent()).map((e)=>{
-         e.uuid = self.crypto.randomUUID();
+        e.uuid = crypto.randomBytes(16).toString('hex');//self.crypto.randomUUID();
         return e;
     });
     //console.log(ui.editor.graph.getChildEdges(ui.editor.graph.getDefaultParent()));
     const edges = ui.editor.graph.getChildEdges(ui.editor.graph.getDefaultParent()).map((e)=>{
-        e.uuid = self.crypto.randomUUID();
+        e.uuid = crypto.randomBytes(16).toString('hex');//self.crypto.randomUUID();
        return e;
     });
     console.log(vertex)
